@@ -3,9 +3,12 @@ const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 const bodyParser = require('body-parser');
 const User = require('./models/User')
+const passport = require('passport');
+const path = require("path");
 
 const express = require("express");
 const app = express();
+
 
 const db = require('./config/keys').mongoURI;
 
@@ -16,6 +19,8 @@ mongoose
 
 app.get("/", (req, res) => res.send("Hello Tim"));
 
+app.use(passport.initialize());
+require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
